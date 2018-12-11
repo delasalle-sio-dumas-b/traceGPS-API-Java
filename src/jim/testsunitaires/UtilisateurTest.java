@@ -58,22 +58,32 @@ public class UtilisateurTest {
 
 	@Test
 	public void testGetMdpSha1() {
-		fail("Not yet implemented");
+		assertEquals("Test getMdpSha1 : ", "", utilisateur1.getMdpSha1());
+		assertEquals("Test getMdpSha1 : ", "abcdef", utilisateur2.getMdpSha1());
 	}
 
 	@Test
 	public void testSetMdpSha1() {
-		fail("Not yet implemented");
+		utilisateur1.setMdpSha1("ABCDEFG");
+		assertEquals("Test setMdpSha1 : ", "ABCDEFG", utilisateur1.getMdpSha1());
+
+		utilisateur2.setMdpSha1("132456");
+		assertEquals("Test setMdpSha1 : ", "132456", utilisateur2.getMdpSha1());
 	}
 
 	@Test
 	public void testGetAdrMail() {
-		fail("Not yet implemented");
+		assertEquals("Test getAdrMail : ", utilisateur1.getAdrMail(), "");
+		assertEquals("Test getMdpSha1 : ", "toto@free.fr", utilisateur2.getAdrMail());
 	}
 
 	@Test
 	public void testSetAdrMail() {
-		fail("Not yet implemented");
+		utilisateur1.setAdrMail("abcd@gmail.com");
+		assertEquals("Test setAdrMail : ", utilisateur1.getAdrMail(), "abcd@gmail.com");
+		
+		utilisateur2.setAdrMail("gigatz@gmail.com");
+		assertEquals("Test setAdrMail : " ,"gigatz@gmail.com", utilisateur2.getAdrMail());
 	}
 
 	@Test
@@ -124,13 +134,18 @@ public class UtilisateurTest {
 	}
 
 	@Test
-	public void testGetDateDerniereTrace() {
-		fail("Not yet implemented");
+	public void testGetDateDerniereTrace() throws ParseException {
+		assertEquals("Test getDateDerniereTrace : ", null, utilisateur1.getDateDerniereTrace());
+		assertEquals("Test getDateDerniereTrace : ", Outils.convertirEnDateHeure("28/06/2016 14:00:00"), utilisateur2.getDateDerniereTrace());
 	}
 
 	@Test
 	public void testSetDateDerniereTrace() throws ParseException {
-		fail("Not yet implemented");
+		utilisateur1.setDateDerniereTrace(utilisateur2.getDateDerniereTrace());
+		assertEquals("Test setDateDerniereTrace : ", Outils.convertirEnDateHeure("28/06/2016 14:00:00"), utilisateur1.getDateDerniereTrace());
+		
+		utilisateur2.setDateDerniereTrace(Outils.convertirEnDateHeure("11/12/2018 17:00:00"));
+		assertEquals("Test setDateDerniereTrace : ", Outils.convertirEnDateHeure("11/12/2018 17:00:00"), utilisateur2.getDateDerniereTrace());
 	}
 
 	@Test
