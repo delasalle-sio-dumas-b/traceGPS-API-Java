@@ -100,7 +100,8 @@ public class UtilisateurTest {
 
 	@Test
 	public void testSetDateCreation() throws ParseException {
-		fail("Not yet implemented");
+		utilisateur1.setDateCreation(Outils.convertirEnDateHeure("28/06/2016 14:00:00"));
+		assertEquals("Test getLatitude", "21/06/2016 14:10:00", utilisateur1.getDateCreation());
 	}
 
 	@Test
