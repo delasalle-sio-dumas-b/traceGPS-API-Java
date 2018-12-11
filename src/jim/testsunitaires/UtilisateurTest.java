@@ -88,14 +88,14 @@ public class UtilisateurTest {
 
 	@Test
 	public void testGetNumTel() {
-		assertEquals("Test getNumTel", null, utilisateur1);	
-		assertEquals("Test getNumTel", "1122334455", utilisateur2);	
+		assertEquals("Test getNumTel", "", utilisateur1.getNumTel());	
+		assertEquals("Test getNumTel", "11.22.33.44.55", utilisateur2.getNumTel());	
 	}
 
 	@Test
 	public void testSetNumTel() {
-		utilisateur1.setNumTel("1122334455");
-		assertEquals("Test getLatitude", "21/06/2016 14:10:00", utilisateur1.getDateCreation());	}
+		utilisateur1.setNumTel("1122334466");
+		assertEquals("Test setNumTel", "11.22.33.44.66", utilisateur1.getNumTel());	}
 
 	@Test
 	public void testGetNiveau() {
@@ -110,15 +110,15 @@ public class UtilisateurTest {
 	}
 
 	@Test
-	public void testGetDateCreation() {
-		assertEquals("Test getDateCreation", null, utilisateur1);	
-		assertEquals("Test getDateCreation", "21/06/2016 14:10:00", utilisateur2);			
+	public void testGetDateCreation() throws ParseException {
+		assertEquals("Test getDateCreation", null, utilisateur1.getDateCreation());	
+		assertEquals("Test getDateCreation", Outils.convertirEnDateHeure("21/06/2016 14:00:00"), utilisateur2.getDateCreation());			
 	}
 
 	@Test
 	public void testSetDateCreation() throws ParseException {
-		utilisateur1.setDateCreation(Outils.convertirEnDateHeure("28/06/2016 14:00:00"));
-		assertEquals("Test getDateCreation", "21/06/2016 14:10:00", utilisateur1.getDateCreation());
+		utilisateur1.setDateCreation(Outils.convertirEnDateHeure("28/06/2016 14:10:00"));
+		assertEquals("Test setDateCreation", Outils.convertirEnDateHeure("28/06/2016 14:10:00"), utilisateur1.getDateCreation());
 	}
 
 	@Test
