@@ -54,32 +54,22 @@ public class UtilisateurTest {
 
 	@Test
 	public void testGetMdpSha1() {
-		assertEquals("", utilisateur1.getMdpSha1());
-		assertEquals("abcdef", utilisateur2.getMdpSha1());
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testSetMdpSha1() {
-		utilisateur1.setMdpSha1("ABCDEFG");
-		assertEquals("ABCDEFG", utilisateur1.getMdpSha1());
-
-		utilisateur2.setMdpSha1("132456");
-		assertEquals("132456", utilisateur2.getMdpSha1());
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testGetAdrMail() {
-		assertEquals(utilisateur1.getAdrMail(), "");
-		assertEquals("toto@free.fr", utilisateur2.getAdrMail());
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testSetAdrMail() {
-		utilisateur1.setAdrMail("abcd@gmail.com");
-		assertEquals(utilisateur1.getAdrMail(), "abcd@gmail.com");
-		
-		utilisateur2.setAdrMail("gigatz@gmail.com");
-		assertEquals("gigatz@gmail.com", utilisateur2.getAdrMail());
+		fail("Not yet implemented");
 	}
 
 	@Test
@@ -104,7 +94,8 @@ public class UtilisateurTest {
 
 	@Test
 	public void testGetDateCreation() {
-		fail("Not yet implemented");
+		assertEquals("Test getDateCreation", null, utilisateur1);	
+		assertEquals("Test getDateCreation", "21/06/2016 14:10:00", utilisateur2);			
 	}
 
 	@Test
