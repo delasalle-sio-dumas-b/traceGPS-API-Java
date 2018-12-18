@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.junit.Test;
@@ -98,31 +99,46 @@ public class PasserelleServiceWebXMLTest {
 //		
 //	}
 	
-//	@Test
-//	public void testDemanderUneAutorisation() {
-//		fail("Not yet implemented");	
-//	}	
+	
+	
+	@Test
+	public void testDemanderUneAutorisation() {
+		String msg;
+
+		// test visuel de la méthode getLesUtilisateursQueJautorise
+		ArrayList<Utilisateur> lesUtilisateurs = new ArrayList<Utilisateur>();
+		msg = PasserelleServicesWebXML.getLesUtilisateursQueJautorise("europa", Outils.sha1("mdputilisateur"), lesUtilisateurs);
+		// affichage de la réponse
+		System.out.println(msg);
+		// affichage du nombre d'utilisateurs
+		System.out.println("Nombre d'utilisateurs : " + lesUtilisateurs.size());
+		// affichage de tous les utilisateurs
+		for (Utilisateur unUtilisateur : lesUtilisateurs)
+		{	System.out.println(unUtilisateur.toString());
+		}
+	
+	}	
 //	
 //	@Test
 //	public void testRetirerUneAutorisation() {
 //		fail("Not yet implemented");
 //	}
 //	
-	@Test
-	public void testEnvoyerPosition() throws ParseException {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	public void testEnvoyerPosition() throws ParseException {
+//		fail("Not yet implemented");
+//	}
 
-	@Test
-	public void testDemarrerEnregistrementParcours() {
-		Trace laTrace = new Trace();
-		String msg = PasserelleServicesWebXML.demarrerEnregistrementParcours("europa", Outils.sha1("mdputilisateurrrrrr"), laTrace);
-		assertEquals("Erreur : authentification incorrecte.", msg);
-		
-		laTrace = new Trace();
-		msg = PasserelleServicesWebXML.demarrerEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), laTrace);
-		assertEquals("Trace créée.", msg);	
-	}
+//	@Test
+//	public void testDemarrerEnregistrementParcours() {
+//		Trace laTrace = new Trace();
+//		String msg = PasserelleServicesWebXML.demarrerEnregistrementParcours("europa", Outils.sha1("mdputilisateurrrrrr"), laTrace);
+//		assertEquals("Erreur : authentification incorrecte.", msg);
+//		
+//		laTrace = new Trace();
+//		msg = PasserelleServicesWebXML.demarrerEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), laTrace);
+//		assertEquals("Trace créée.", msg);	
+//	}
 
 
 //	@Test
