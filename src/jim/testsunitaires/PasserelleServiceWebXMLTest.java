@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.junit.Test;
@@ -86,8 +87,9 @@ public class PasserelleServiceWebXMLTest {
 //		msg = PasserelleServicesWebXML.changerDeMdp("europa", Outils.sha1("mdputilisateurrrr"), "mdputilisateur", "mdputilisateur");
 //		assertEquals("Enregistrement effectué ; vous allez recevoir un courriel de confirmation.", msg);
 //	}	
-
+//
 //	@Test
+
 //	public void testDemanderMdp() {
 //		
 //			String msg = PasserelleServicesWebXML.demanderMdp("jim");
@@ -152,6 +154,18 @@ public class PasserelleServiceWebXMLTest {
 //
 
 //	@Test
+//	public void testDemarrerEnregistrementParcours() {
+//		Trace laTrace = new Trace();
+//		String msg = PasserelleServicesWebXML.demarrerEnregistrementParcours("europa", Outils.sha1("mdputilisateurrrrrr"), laTrace);
+//		assertEquals("Erreur : authentification incorrecte.", msg);
+//		
+//		laTrace = new Trace();
+//		msg = PasserelleServicesWebXML.demarrerEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), laTrace);
+//		assertEquals("Trace créée.", msg);	
+//	}
+//
+//
+//	@Test
 //	public void testArreterEnregistrementParcours() {
 //		fail("Not yet implemented");
 //	}
@@ -170,4 +184,5 @@ public class PasserelleServiceWebXMLTest {
 //		msg = PasserelleServicesWebXML.supprimerUnParcours("europa", Outils.sha1("mdputilisateur"), 30);
 //		assertEquals("Parcours supprimé.", msg);	
 //	}	
+
 } // fin du test
