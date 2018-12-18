@@ -29,7 +29,15 @@ public class TestPasserelleServicesWebXML {
 
 		
 		// test visuel de la méthode getUnParcoursEtSesPoints
-
+//		String msg;
+//
+//		// test visuel de la méthode getUnParcoursEtSesPoints
+//		Trace laTrace = new Trace();
+//		msg = PasserelleServicesWebXML.getUnParcoursEtSesPoints("europa", Outils.sha1("mdputilisateur"), 2, laTrace);
+//		// affichage de la réponse
+//		System.out.println(msg);
+//		// affichage de la trace
+//		System.out.println(laTrace.toString());
 	
 	} // fin Main
 } // fin class
