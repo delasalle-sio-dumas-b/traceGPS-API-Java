@@ -300,15 +300,14 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 	{
 		String reponse = "";
 		try
-		{	// crÃ©ation d'un nouveau document XML Ã  partir de l'URL du service web et des paramÃ¨tres
+		{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
 			String urlDuServiceWeb = _adresseHebergeur + _urlGetLesUtilisateursQueJautorise;
 			urlDuServiceWeb += "?pseudo=" + pseudo;
 			urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
-
-			// crÃ©ation d'un flux en lecture (InputStream) Ã  partir du service
+			// création d'un flux en lecture (InputStream) à partir du service
 			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
 
-			// crÃ©ation d'un objet org.w3c.dom.Document Ã  partir du flux ; il servira Ã  parcourir le flux XML
+			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
 			Document leDocument = getDocumentXML(unFluxEnLecture);
 
 			// parsing du flux XML
@@ -316,31 +315,49 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 			reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
 
 			NodeList listeNoeudsUtilisateurs = leDocument.getElementsByTagName("utilisateur");
-			/* Exemple de donnÃ©es obtenues pour un utilisateur :
-				<utilisateur>
-					<id>2</id>
-					<pseudo>callisto</pseudo>
-					<adrMail>delasalle.sio.eleves@gmail.com</adrMail>
-					<numTel>22.33.44.55.66</numTel>
-					<niveau>1</niveau>
-					<dateCreation>2018-01-19 20:11:24</dateCreation>
-					<nbTraces>2</nbTraces>
-					<dateDerniereTrace>2018-01-19 13:08:48</dateDerniereTrace>
-				</utilisateur>
-			 */
+		    /* Exemple de code XML
+	         <?xml version="1.0" encoding="UTF-8"?>
+	    <!--Service web GetLesUtilisateursQueJautorise - BTS SIO - Lycée De La Salle - Rennes-->
+	    <data>
+	      <reponse>2 autorisation(s) accordée(s) par neon.</reponse>
+	      <donnees>
+	        <lesUtilisateurs>
+	            <utilisateur>
+	              <id>12</id>
+	              <pseudo>oxygen</pseudo>
+	              <adrMail>delasalle.sio.eleves@gmail.com</adrMail>
+	              <numTel>44.55.66.77.88</numTel>
+	              <niveau>1</niveau>
+	              <dateCreation>2018-11-03 21:46:44</dateCreation>
+	              <nbTraces>2</nbTraces>
+	              <dateDerniereTrace>2018-01-19 13:08:48</dateDerniereTrace>
+	            </utilisateur>
+	            <utilisateur>
+	              <id>13</id>
+	              <pseudo>photon</pseudo>
+	              <adrMail>delasalle.sio.eleves@gmail.com</adrMail>
+	              <numTel>44.55.66.77.88</numTel>
+	              <niveau>1</niveau>
+	              <dateCreation>2018-11-03 21:46:44</dateCreation>
+	              <nbTraces>0</nbTraces>
+	            </utilisateur>
+	        </lesUtilisateurs>
+	      </donnees>
+	    </data>
+	     */
 
 			// vider d'abord la collection avant de la remplir
 			lesUtilisateurs.clear();
 
 			// parcours de la liste des noeuds <utilisateur> et ajout dans la collection lesUtilisateurs
 			for (int i = 0 ; i <= listeNoeudsUtilisateurs.getLength()-1 ; i++)
-			{	// crÃ©ation de l'Ã©lÃ©ment courant Ã  chaque tour de boucle
+			{	// création de l'élément courant à chaque tour de boucle
 				Element courant = (Element) listeNoeudsUtilisateurs.item(i);
-
-				// lecture des balises intÃ©rieures
+				
+				// lecture des balises intérieures
 				int unId = Integer.parseInt(courant.getElementsByTagName("id").item(0).getTextContent());
 				String unPseudo = courant.getElementsByTagName("pseudo").item(0).getTextContent();
-				String unMdpSha1 = "";								// par sÃ©curitÃ©, on ne rÃ©cupÃ¨re pas le mot de passe
+				String unMdpSha1 = "";								// par sécurité, on ne récupère pas le mot de passe
 				String uneAdrMail = courant.getElementsByTagName("adrMail").item(0).getTextContent();
 				String unNumTel = courant.getElementsByTagName("numTel").item(0).getTextContent();
 				int unNiveau = Integer.parseInt(courant.getElementsByTagName("niveau").item(0).getTextContent());
@@ -350,18 +367,19 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 				if (unNbTraces > 0)
 					uneDateDerniereTrace = Outils.convertirEnDate(courant.getElementsByTagName("dateDerniereTrace").item(0).getTextContent(), formatDateUS);
 
-				// crÃ©e un objet Utilisateur
+				// crée un objet Utilisateur
 				Utilisateur unUtilisateur = new Utilisateur(unId, unPseudo, unMdpSha1, uneAdrMail, unNumTel, unNiveau, uneDateCreation, unNbTraces, uneDateDerniereTrace);
 
-				// ajoute l'utilisateur Ã  la collection lesUtilisateurs
+				// ajoute l'utilisateur à la collection lesUtilisateurs
 				lesUtilisateurs.add(unUtilisateur);
 			}
 
-			// retour de la rÃ©ponse du service web
+			// retour de la réponse du service web
 			return reponse;
 		}
 		catch (Exception ex)
-		{	String msg = "Erreur : " + ex.getMessage();
+		{	
+			String msg = "Erreur : " + ex.getMessage();
 			return msg;
 		}
 	}
@@ -373,7 +391,84 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 	//    lesUtilisateurs : collection (vide) Ã  remplir Ã  partir des donnÃ©es fournies par le service web
 	public static String getLesUtilisateursQuiMautorisent(String pseudo, String mdpSha1, ArrayList<Utilisateur> lesUtilisateurs)
 	{
-		return "";				// METHODE A CREER ET TESTER
+		String reponse = "";
+		try
+		{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
+			String urlDuServiceWeb = _adresseHebergeur + _urlGetLesUtilisateursQuiMautorisent;
+			urlDuServiceWeb += "?pseudo=" + pseudo;
+			urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
+			// création d'un flux en lecture (InputStream) à partir du service
+			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
+
+			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
+			Document leDocument = getDocumentXML(unFluxEnLecture);
+
+			// parsing du flux XML
+			Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
+			reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
+
+			NodeList listeNoeudsUtilisateurs = leDocument.getElementsByTagName("utilisateur");
+			/* Exemple de données obtenues pour un utilisateur :
+				<lesUtilisateurs>
+			        <utilisateur>
+				        <id>5</id>
+				        <pseudo>helios</pseudo>
+				        <adrMail>delasalle.sio.eleves@gmail.com</adrMail>
+				        <numTel>33.44.55.66.77</numTel>
+				        <niveau>1</niveau>
+				        <dateCreation>2018-12-18 14:33:21</dateCreation>
+				        <nbTraces>2</nbTraces>
+				        <dateDerniereTrace>2018-01-19 13:08:48</dateDerniereTrace>
+			      	</utilisateur>
+			      	<utilisateur>
+				        <id>6</id>
+				        <pseudo>indigo</pseudo>
+				        <adrMail>delasalle.sio.eleves@gmail.com</adrMail>
+				        <numTel>44.55.66.77.88</numTel>
+				        <niveau>1</niveau>
+				        <dateCreation>2018-12-18 14:33:21</dateCreation>
+				        <nbTraces>2</nbTraces>
+				        <dateDerniereTrace>2018-01-19 13:08:48</dateDerniereTrace>
+			      	</utilisateur>
+			    </lesUtilisateurs>
+			 */
+
+			// vider d'abord la collection avant de la remplir
+			lesUtilisateurs.clear();
+
+			// parcours de la liste des noeuds <utilisateur> et ajout dans la collection lesUtilisateurs
+			for (int i = 0 ; i <= listeNoeudsUtilisateurs.getLength()-1 ; i++)
+			{	// création de l'élément courant à chaque tour de boucle
+				Element courant = (Element) listeNoeudsUtilisateurs.item(i);
+				
+				// lecture des balises intérieures
+				int unId = Integer.parseInt(courant.getElementsByTagName("id").item(0).getTextContent());
+				String unPseudo = courant.getElementsByTagName("pseudo").item(0).getTextContent();
+				String unMdpSha1 = "";								// par sécurité, on ne récupère pas le mot de passe
+				String uneAdrMail = courant.getElementsByTagName("adrMail").item(0).getTextContent();
+				String unNumTel = courant.getElementsByTagName("numTel").item(0).getTextContent();
+				int unNiveau = Integer.parseInt(courant.getElementsByTagName("niveau").item(0).getTextContent());
+				Date uneDateCreation = Outils.convertirEnDate(courant.getElementsByTagName("dateCreation").item(0).getTextContent(), formatDateUS);
+				int unNbTraces = Integer.parseInt(courant.getElementsByTagName("nbTraces").item(0).getTextContent());
+				Date uneDateDerniereTrace = null;
+				if (unNbTraces > 0)
+					uneDateDerniereTrace = Outils.convertirEnDate(courant.getElementsByTagName("dateDerniereTrace").item(0).getTextContent(), formatDateUS);
+
+				// crée un objet Utilisateur
+				Utilisateur unUtilisateur = new Utilisateur(unId, unPseudo, unMdpSha1, uneAdrMail, unNumTel, unNiveau, uneDateCreation, unNbTraces, uneDateDerniereTrace);
+
+				// ajoute l'utilisateur à la collection lesUtilisateurs
+				lesUtilisateurs.add(unUtilisateur);
+			}
+
+			// retour de la réponse du service web
+			return reponse;
+		}
+		catch (Exception ex)
+		{	
+			String msg = "Erreur : " + ex.getMessage();
+			return msg;
+		}
 	}
 
 	// MÃ©thode statique pour demander une autorisation (service DemanderUneAutorisation.php)

@@ -87,7 +87,7 @@ public class PasserelleServiceWebXMLTest {
 //		msg = PasserelleServicesWebXML.changerDeMdp("europa", Outils.sha1("mdputilisateurrrr"), "mdputilisateur", "mdputilisateur");
 //		assertEquals("Enregistrement effectué ; vous allez recevoir un courriel de confirmation.", msg);
 //	}	
-
+//
 //	@Test
 //	public void testDemanderMdp() {
 //		
@@ -98,37 +98,43 @@ public class PasserelleServiceWebXMLTest {
 //			assertEquals("Vous allez recevoir un courriel avec votre nouveau mot de passe.", msg);
 //		
 //	}
-	
-	
-	
-	@Test
-	public void testDemanderUneAutorisation() {
-		String msg;
-
-		// test visuel de la méthode getLesUtilisateursQueJautorise
-		ArrayList<Utilisateur> lesUtilisateurs = new ArrayList<Utilisateur>();
-		msg = PasserelleServicesWebXML.getLesUtilisateursQueJautorise("europa", Outils.sha1("mdputilisateur"), lesUtilisateurs);
-		// affichage de la réponse
-		System.out.println(msg);
-		// affichage du nombre d'utilisateurs
-		System.out.println("Nombre d'utilisateurs : " + lesUtilisateurs.size());
-		// affichage de tous les utilisateurs
-		for (Utilisateur unUtilisateur : lesUtilisateurs)
-		{	System.out.println(unUtilisateur.toString());
-		}
-	
-	}	
+//	
+//	
+//	
+//	@Test
+//	public void testDemanderUneAutorisation() {
+//		return "";
+//	
+//	}	
 //	
 //	@Test
 //	public void testRetirerUneAutorisation() {
 //		fail("Not yet implemented");
 //	}
 //	
+//
 //	@Test
 //	public void testEnvoyerPosition() throws ParseException {
-//		fail("Not yet implemented");
+//			Date laDate = Outils.convertirEnDateHeure("24/01/2018 13:42:21");
+//		
+//		PointDeTrace lePoint = new PointDeTrace(23, 0, 48.15, -1.68, 50, laDate, 80);
+//		String msg = PasserelleServicesWebXML.envoyerPosition("europa", Outils.sha1("mdputilisateurrrrrr"), lePoint);
+//		assertEquals("Erreur : authentification incorrecte.", msg);
+//		
+//		lePoint = new PointDeTrace(2333, 0, 48.15, -1.68, 50, laDate, 80);
+//		msg = PasserelleServicesWebXML.envoyerPosition("europa", Outils.sha1("mdputilisateur"), lePoint);
+//		assertEquals("Erreur : le numéro de trace n'existe pas.", msg);
+//		
+//		lePoint = new PointDeTrace(22, 0, 48.15, -1.68, 50, laDate, 80);
+//		msg = PasserelleServicesWebXML.envoyerPosition("europa", Outils.sha1("mdputilisateur"), lePoint);
+//		assertEquals("Erreur : le numéro de trace ne correspond pas à cet utilisateur.", msg);	
+//		
+//		lePoint = new PointDeTrace(4, 0, 48.15, -1.68, 50, laDate, 80);
+//		msg = PasserelleServicesWebXML.envoyerPosition("europa", Outils.sha1("mdputilisateur"), lePoint);
+//		assertEquals("Point créé.", msg);
 //	}
-
+//
+//
 //	@Test
 //	public void testDemarrerEnregistrementParcours() {
 //		Trace laTrace = new Trace();
@@ -139,8 +145,8 @@ public class PasserelleServiceWebXMLTest {
 //		msg = PasserelleServicesWebXML.demarrerEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), laTrace);
 //		assertEquals("Trace créée.", msg);	
 //	}
-
-
+//
+//
 //	@Test
 //	public void testArreterEnregistrementParcours() {
 //		fail("Not yet implemented");
