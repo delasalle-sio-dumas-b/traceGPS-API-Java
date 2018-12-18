@@ -39,7 +39,13 @@ public class PasserelleServiceWebXMLTest {
 
 	@Test
 	public void testDemanderMdp() {
-		fail("Not yet implemented");
+		
+			String msg = PasserelleServicesWebXML.demanderMdp("jim");
+			assertEquals("Erreur : pseudo inexistant.", msg);
+			
+			msg = PasserelleServicesWebXML.demanderMdp("europa");
+			assertEquals("Vous allez recevoir un courriel avec votre nouveau mot de passe.", msg);
+		
 	}
 	
 	@Test

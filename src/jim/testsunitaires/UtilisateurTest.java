@@ -94,13 +94,9 @@ public class UtilisateurTest {
 
 	@Test
 	public void testSetNumTel() {
-<<<<<<< HEAD
-		utilisateur1.setNumTel("1122334455");
-		assertEquals("Test setNumTel", "21/06/2016 14:10:00", utilisateur1.getDateCreation());	}
-=======
+
 		utilisateur1.setNumTel("1122334466");
 		assertEquals("Test setNumTel", "11.22.33.44.66", utilisateur1.getNumTel());	}
->>>>>>> branch 'master' of https://github.com/delasalle-sio-dumas-b/traceGPS-API-Java.git
 
 	@Test
 	public void testGetNiveau() {
@@ -122,13 +118,10 @@ public class UtilisateurTest {
 
 	@Test
 	public void testSetDateCreation() throws ParseException {
-<<<<<<< HEAD
-		utilisateur1.setDateCreation(Outils.convertirEnDateHeure("28/06/2016 14:00:00"));
-		assertEquals("Test setDateCreation", "21/06/2016 14:10:00", utilisateur1.getDateCreation());
-=======
+
 		utilisateur1.setDateCreation(Outils.convertirEnDateHeure("28/06/2016 14:10:00"));
 		assertEquals("Test setDateCreation", Outils.convertirEnDateHeure("28/06/2016 14:10:00"), utilisateur1.getDateCreation());
->>>>>>> branch 'master' of https://github.com/delasalle-sio-dumas-b/traceGPS-API-Java.git
+
 	}
 
 	@Test
