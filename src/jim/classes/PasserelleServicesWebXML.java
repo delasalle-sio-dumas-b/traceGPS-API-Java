@@ -324,7 +324,7 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 			Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
 			reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
 
-			NodeList listeNoeudsUtilisateurs = leDocument.getElementsByTagName("lesUtilisateurs");
+			NodeList listeNoeudsUtilisateurs = leDocument.getElementsByTagName("utilisateur");
 			/* Exemple de données obtenues pour un utilisateur :
 				<lesUtilisateurs>
 			        <utilisateur>
@@ -357,7 +357,7 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 			for (int i = 0 ; i <= listeNoeudsUtilisateurs.getLength()-1 ; i++)
 			{	// création de l'élément courant à chaque tour de boucle
 				Element courant = (Element) listeNoeudsUtilisateurs.item(i);
-
+				
 				// lecture des balises intérieures
 				int unId = Integer.parseInt(courant.getElementsByTagName("id").item(0).getTextContent());
 				String unPseudo = courant.getElementsByTagName("pseudo").item(0).getTextContent();

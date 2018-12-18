@@ -126,8 +126,7 @@ public class PasserelleServiceWebXMLTest {
 		
 		lePoint = new PointDeTrace(4, 0, 48.15, -1.68, 50, laDate, 80);
 		msg = PasserelleServicesWebXML.envoyerPosition("europa", Outils.sha1("mdputilisateur"), lePoint);
-		assertEquals("Point créé.", msg);	
-
+		assertEquals("Point créé.", msg);
 	}
 
 	@Test
