@@ -1,10 +1,10 @@
 // Projet TraceGPS - API Java
 // Fichier : PasserelleServicesWeb.java
-// Cette classe hÃ©rite de la classe Passerelle
-// Elle fournit des mÃ©thodes pour appeler les diffÃ©rents services web
-// Elle utilise le modÃ¨le Jaxp pour parcourir le document XML
-// Le modÃ¨le Jaxp fait partie du JDK (et Ã©galement du SDK Android)
-// DerniÃ¨re mise Ã  jour : 19/11/2018 par Jim
+// Cette classe hérite de la classe Passerelle
+// Elle fournit des méthodes pour appeler les différents services web
+// Elle utilise le modèle Jaxp pour parcourir le document XML
+// Le modèle Jaxp fait partie du JDK (et également du SDK Android)
+// Dernière mise à jour : 19/11/2018 par Jim
 
 package jim.classes;
 
@@ -19,15 +19,15 @@ import org.w3c.dom.NodeList;
 
 public class PasserelleServicesWebXML extends PasserelleXML {
 
-	// attributs privÃ©s
+	// attributs privés
 	private static String formatDateUS = "yyyy-MM-dd HH:mm:ss";
 
-	// Adresse de l'hÃ©bergeur Internet
+	// Adresse de l'hébergeur Internet
 	//private static String _adresseHebergeur = "http://sio.lyceedelasalle.fr/tracegps/services/";
 	// Adresse du localhost en cas d'exécution sur le poste de développement (projet de tests des classes)
 	private static String _adresseHebergeur = "http://127.0.0.1/ws-php-vallee/tracegps/services/";
 
-	// Noms des services web dÃ©jÃ  traitÃ©s par la passerelle
+	// Noms des services web déjà traités par la passerelle
 	private static String _urlArreterEnregistrementParcours = "ArreterEnregistrementParcours.php";
 	private static String _urlChangerDeMdp = "ChangerDeMdp.php";
 	private static String _urlConnecter = "Connecter.php";
@@ -46,33 +46,33 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 	private static String _urlSupprimerUnParcours = "SupprimerUnParcours.php";
 
 	// -------------------------------------------------------------------------------------------------
-	// ------------------------------------- mÃ©thodes dÃ©jÃ  dÃ©veloppÃ©es ---------------------------------
+	// ------------------------------------- méthodes déjà développées ---------------------------------
 	// -------------------------------------------------------------------------------------------------
 	
-	// MÃ©thode statique pour se connecter (service Connecter.php)
-	// La mÃ©thode doit recevoir 2 paramÃ¨tres :
+	// Méthode statique pour se connecter (service Connecter.php)
+	// La méthode doit recevoir 2 paramètres :
 	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
-	//    mdpSha1 : le mot de passe hashÃ© en sha1
+	//    mdpSha1 : le mot de passe hashé en sha1
 	public static String connecter(String pseudo, String mdpSha1)
 	{
 		String reponse = "";
 		try
-		{	// crÃ©ation d'un nouveau document XML Ã  partir de l'URL du service web et des paramÃ¨tres
+		{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
 			String urlDuServiceWeb = _adresseHebergeur + _urlConnecter;
 			urlDuServiceWeb += "?pseudo=" + pseudo;
 			urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
 
-			// crÃ©ation d'un flux en lecture (InputStream) Ã  partir du service
+			// création d'un flux en lecture (InputStream) à partir du service
 			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
 
-			// crÃ©ation d'un objet org.w3c.dom.Document Ã  partir du flux ; il servira Ã  parcourir le flux XML
+			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
 			Document leDocument = getDocumentXML(unFluxEnLecture);
 
 			// parsing du flux XML
 			Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
 			reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
 
-			// retour de la rÃ©ponse du service web
+			// retour de la réponse du service web
 			return reponse;
 		}
 		catch (Exception ex)
@@ -81,24 +81,24 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 		}
 	}
 	
-	// MÃ©thode statique pour obtenir la liste de tous les utilisateurs de niveau 1 (service GetTousLesUtilisateurs.php)
-	// La mÃ©thode doit recevoir 3 paramÃ¨tres :
+	// Méthode statique pour obtenir la liste de tous les utilisateurs de niveau 1 (service GetTousLesUtilisateurs.php)
+	// La méthode doit recevoir 3 paramètres :
 	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
-	//    mdpSha1 : le mot de passe hashÃ© en sha1
-	//    lesUtilisateurs : collection (vide) Ã  remplir Ã  partir des donnÃ©es fournies par le service web
+	//    mdpSha1 : le mot de passe hashé en sha1
+	//    lesUtilisateurs : collection (vide) à remplir à partir des données fournies par le service web
 	public static String getTousLesUtilisateurs(String pseudo, String mdpSha1, ArrayList<Utilisateur> lesUtilisateurs)
 	{
 		String reponse = "";
 		try
-		{	// crÃ©ation d'un nouveau document XML Ã  partir de l'URL du service web et des paramÃ¨tres
+		{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
 			String urlDuServiceWeb = _adresseHebergeur + _urlGetTousLesUtilisateurs;
 			urlDuServiceWeb += "?pseudo=" + pseudo;
 			urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
 
-			// crÃ©ation d'un flux en lecture (InputStream) Ã  partir du service
+			// création d'un flux en lecture (InputStream) à partir du service
 			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
 
-			// crÃ©ation d'un objet org.w3c.dom.Document Ã  partir du flux ; il servira Ã  parcourir le flux XML
+			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
 			Document leDocument = getDocumentXML(unFluxEnLecture);
 
 			// parsing du flux XML
@@ -106,7 +106,7 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 			reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
 
 			NodeList listeNoeudsUtilisateurs = leDocument.getElementsByTagName("utilisateur");
-			/* Exemple de donnÃ©es obtenues pour un utilisateur :
+			/* Exemple de données obtenues pour un utilisateur :
 				<utilisateur>
 					<id>2</id>
 					<pseudo>callisto</pseudo>
@@ -124,13 +124,13 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 
 			// parcours de la liste des noeuds <utilisateur> et ajout dans la collection lesUtilisateurs
 			for (int i = 0 ; i <= listeNoeudsUtilisateurs.getLength()-1 ; i++)
-			{	// crÃ©ation de l'Ã©lÃ©ment courant Ã  chaque tour de boucle
+			{	// création de l'élément courant à chaque tour de boucle
 				Element courant = (Element) listeNoeudsUtilisateurs.item(i);
 
-				// lecture des balises intÃ©rieures
+				// lecture des balises intérieures
 				int unId = Integer.parseInt(courant.getElementsByTagName("id").item(0).getTextContent());
 				String unPseudo = courant.getElementsByTagName("pseudo").item(0).getTextContent();
-				String unMdpSha1 = "";								// par sÃ©curitÃ©, on ne rÃ©cupÃ¨re pas le mot de passe
+				String unMdpSha1 = "";								// par sécurité, on ne récupère pas le mot de passe
 				String uneAdrMail = courant.getElementsByTagName("adrMail").item(0).getTextContent();
 				String unNumTel = courant.getElementsByTagName("numTel").item(0).getTextContent();
 				int unNiveau = Integer.parseInt(courant.getElementsByTagName("niveau").item(0).getTextContent());
@@ -140,14 +140,14 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 				if (unNbTraces > 0)
 					uneDateDerniereTrace = Outils.convertirEnDate(courant.getElementsByTagName("dateDerniereTrace").item(0).getTextContent(), formatDateUS);
 
-				// crÃ©e un objet Utilisateur
+				// crée un objet Utilisateur
 				Utilisateur unUtilisateur = new Utilisateur(unId, unPseudo, unMdpSha1, uneAdrMail, unNumTel, unNiveau, uneDateCreation, unNbTraces, uneDateDerniereTrace);
 
-				// ajoute l'utilisateur Ã  la collection lesUtilisateurs
+				// ajoute l'utilisateur à la collection lesUtilisateurs
 				lesUtilisateurs.add(unUtilisateur);
 			}
 
-			// retour de la rÃ©ponse du service web
+			// retour de la réponse du service web
 			return reponse;
 		}
 		catch (Exception ex)
@@ -156,32 +156,32 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 		}
 	}
 	
-	// MÃ©thode statique pour crÃ©er un utilisateur (service CreerUnUtilisateur.php)
-	// La mÃ©thode doit recevoir 3 paramÃ¨tres :
+	// Méthode statique pour créer un utilisateur (service CreerUnUtilisateur.php)
+	// La méthode doit recevoir 3 paramètres :
 	//   pseudo : le pseudo de l'utilisateur qui fait appel au service web
 	//   adrMail : son adresse mail
-	//   numTel : son numÃ©ro de tÃ©lÃ©phone
+	//   numTel : son numéro de téléphone
 	public static String creerUnUtilisateur(String pseudo, String adrMail, String numTel)
 	{
 		String reponse = "";
 		try
-		{	// crÃ©ation d'un nouveau document XML Ã  partir de l'URL du service web et des paramÃ¨tres
+		{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
 			String urlDuServiceWeb = _adresseHebergeur + _urlCreerUnUtilisateur;
 			urlDuServiceWeb += "?pseudo=" + pseudo;
 			urlDuServiceWeb += "&adrMail=" + adrMail;
 			urlDuServiceWeb += "&numTel=" + numTel;
 
-			// crÃ©ation d'un flux en lecture (InputStream) Ã  partir du service
+			// création d'un flux en lecture (InputStream) à partir du service
 			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
 
-			// crÃ©ation d'un objet org.w3c.dom.Document Ã  partir du flux ; il servira Ã  parcourir le flux XML
+			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
 			Document leDocument = getDocumentXML(unFluxEnLecture);
 
 			// parsing du flux XML
 			Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
 			reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
 
-			// retour de la rÃ©ponse du service web
+			// retour de la réponse du service web
 			return reponse;
 		}
 		catch (Exception ex)
@@ -190,33 +190,33 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 		}
 	}
 
-	// MÃ©thode statique pour supprimer un utilisateur (service SupprimerUnUtilisateur.php)
-	// Ce service permet Ã  un administrateur de supprimer un utilisateur (Ã  condition qu'il ne possÃ¨de aucune trace enregistrÃ©e)
-	// La mÃ©thode doit recevoir 3 paramÃ¨tres :
+	// Méthode statique pour supprimer un utilisateur (service SupprimerUnUtilisateur.php)
+	// Ce service permet à un administrateur de supprimer un utilisateur (à condition qu'il ne possède aucune trace enregistrée)
+	// La méthode doit recevoir 3 paramètres :
 	//   pseudo : le pseudo de l'administrateur qui fait appel au service web
-	//   mdpSha1 : le mot de passe hashÃ© en sha1
-	//   pseudoAsupprimer : le pseudo de l'utilisateur Ã  supprimer
+	//   mdpSha1 : le mot de passe hashé en sha1
+	//   pseudoAsupprimer : le pseudo de l'utilisateur à supprimer
 	public static String supprimerUnUtilisateur(String pseudo, String mdpSha1, String pseudoAsupprimer)
 	{
 		String reponse = "";
 		try
-		{	// crÃ©ation d'un nouveau document XML Ã  partir de l'URL du service web et des paramÃ¨tres
+		{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
 			String urlDuServiceWeb = _adresseHebergeur + _urlSupprimerUnUtilisateur;
 			urlDuServiceWeb += "?pseudo=" + pseudo;
 			urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
 			urlDuServiceWeb += "&pseudoAsupprimer=" + pseudoAsupprimer;
 
-			// crÃ©ation d'un flux en lecture (InputStream) Ã  partir du service
+			// création d'un flux en lecture (InputStream) à partir du service
 			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
 
-			// crÃ©ation d'un objet org.w3c.dom.Document Ã  partir du flux ; il servira Ã  parcourir le flux XML
+			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
 			Document leDocument = getDocumentXML(unFluxEnLecture);
 
 			// parsing du flux XML
 			Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
 			reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
 
-			// retour de la rÃ©ponse du service web
+			// retour de la réponse du service web
 			return reponse;
 		}
 		catch (Exception ex)
@@ -225,34 +225,34 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 		}
 	}
 
-	// MÃ©thode statique pour modifier son mot de passe (service ChangerDeMdp.php)
-	// La mÃ©thode doit recevoir 4 paramÃ¨tres :
+	// Méthode statique pour modifier son mot de passe (service ChangerDeMdp.php)
+	// La méthode doit recevoir 4 paramètres :
 	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
-	//    mdpSha1 : le mot de passe hashÃ© en sha1
+	//    mdpSha1 : le mot de passe hashé en sha1
 	//    nouveauMdp : le nouveau mot de passe
 	//    confirmationMdp : la confirmation du nouveau mot de passe
 	public static String changerDeMdp(String pseudo, String mdpSha1, String nouveauMdp, String confirmationMdp)
 	{
 		String reponse = "";
 		try
-		{	// crÃ©ation d'un nouveau document XML Ã  partir de l'URL du service web et des paramÃ¨tres
+		{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
 			String urlDuServiceWeb = _adresseHebergeur + _urlChangerDeMdp;
 			urlDuServiceWeb += "?pseudo=" + pseudo;
 			urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
 			urlDuServiceWeb += "&nouveauMdp=" + nouveauMdp;
 			urlDuServiceWeb += "&confirmationMdp=" + confirmationMdp;
 
-			// crÃ©ation d'un flux en lecture (InputStream) Ã  partir du service
+			// création d'un flux en lecture (InputStream) à partir du service
 			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
 
-			// crÃ©ation d'un objet org.w3c.dom.Document Ã  partir du flux ; il servira Ã  parcourir le flux XML
+			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
 			Document leDocument = getDocumentXML(unFluxEnLecture);
 
 			// parsing du flux XML
 			Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
 			reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
 
-			// retour de la rÃ©ponse du service web
+			// retour de la réponse du service web
 			return reponse;
 		}
 		catch (Exception ex)
@@ -262,17 +262,17 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 	}
 
 	// -------------------------------------------------------------------------------------------------
-	// --------------------------------- mÃ©thodes restant Ã  dÃ©velopper ---------------------------------
+	// --------------------------------- méthodes restant à développer ---------------------------------
 	// -------------------------------------------------------------------------------------------------
 
-	// MÃ©thode statique pour demander un nouveau mot de passe (service DemanderMdp.php)
-	// La mÃ©thode doit recevoir 1 paramÃ¨tre :
+	// Méthode statique pour demander un nouveau mot de passe (service DemanderMdp.php)
+	// La méthode doit recevoir 1 paramètre :
 	//    pseudo : le pseudo de l'utilisateur
 	public static String demanderMdp(String pseudo)
 	{
 		String reponse = "";
 		try
-		{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
+		{	// cr�ation d'un nouveau document XML � partir de l'URL du service web et des param�tres
 			String urlDuServiceWeb = _adresseHebergeur + _urlDemanderMdp;
 			urlDuServiceWeb += "?pseudo=" + pseudo;
 			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
@@ -291,23 +291,23 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 									// METHODE A CREER ET TESTER
 	}
 	
-	// MÃ©thode statique pour obtenir la liste des utilisateurs que j'autorise (service GetLesUtilisateursQueJautorise.php)
-	// La mÃ©thode doit recevoir 3 paramÃ¨tres :
+	// Méthode statique pour obtenir la liste des utilisateurs que j'autorise (service GetLesUtilisateursQueJautorise.php)
+	// La méthode doit recevoir 3 paramètres :
 	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
-	//    mdpSha1 : le mot de passe hashÃ© en sha1
-	//    lesUtilisateurs : collection (vide) Ã  remplir Ã  partir des donnÃ©es fournies par le service web
+	//    mdpSha1 : le mot de passe hashé en sha1
+	//    lesUtilisateurs : collection (vide) à remplir à partir des données fournies par le service web
 	public static String getLesUtilisateursQueJautorise(String pseudo, String mdpSha1, ArrayList<Utilisateur> lesUtilisateurs)
 	{
 		String reponse = "";
 		try
-		{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
+		{	// cr�ation d'un nouveau document XML � partir de l'URL du service web et des param�tres
 			String urlDuServiceWeb = _adresseHebergeur + _urlGetLesUtilisateursQueJautorise;
 			urlDuServiceWeb += "?pseudo=" + pseudo;
 			urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
-			// création d'un flux en lecture (InputStream) à partir du service
+			// cr�ation d'un flux en lecture (InputStream) � partir du service
 			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
 
-			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
+			// cr�ation d'un objet org.w3c.dom.Document � partir du flux ; il servira � parcourir le flux XML
 			Document leDocument = getDocumentXML(unFluxEnLecture);
 
 			// parsing du flux XML
@@ -317,9 +317,9 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 			NodeList listeNoeudsUtilisateurs = leDocument.getElementsByTagName("utilisateur");
 		    /* Exemple de code XML
 	         <?xml version="1.0" encoding="UTF-8"?>
-	    <!--Service web GetLesUtilisateursQueJautorise - BTS SIO - Lycée De La Salle - Rennes-->
+	    <!--Service web GetLesUtilisateursQueJautorise - BTS SIO - Lyc�e De La Salle - Rennes-->
 	    <data>
-	      <reponse>2 autorisation(s) accordée(s) par neon.</reponse>
+	      <reponse>2 autorisation(s) accord�e(s) par neon.</reponse>
 	      <donnees>
 	        <lesUtilisateurs>
 	            <utilisateur>
@@ -351,13 +351,13 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 
 			// parcours de la liste des noeuds <utilisateur> et ajout dans la collection lesUtilisateurs
 			for (int i = 0 ; i <= listeNoeudsUtilisateurs.getLength()-1 ; i++)
-			{	// création de l'élément courant à chaque tour de boucle
+			{	// cr�ation de l'�l�ment courant � chaque tour de boucle
 				Element courant = (Element) listeNoeudsUtilisateurs.item(i);
 				
-				// lecture des balises intérieures
+				// lecture des balises int�rieures
 				int unId = Integer.parseInt(courant.getElementsByTagName("id").item(0).getTextContent());
 				String unPseudo = courant.getElementsByTagName("pseudo").item(0).getTextContent();
-				String unMdpSha1 = "";								// par sécurité, on ne récupère pas le mot de passe
+				String unMdpSha1 = "";								// par s�curit�, on ne r�cup�re pas le mot de passe
 				String uneAdrMail = courant.getElementsByTagName("adrMail").item(0).getTextContent();
 				String unNumTel = courant.getElementsByTagName("numTel").item(0).getTextContent();
 				int unNiveau = Integer.parseInt(courant.getElementsByTagName("niveau").item(0).getTextContent());
@@ -367,14 +367,14 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 				if (unNbTraces > 0)
 					uneDateDerniereTrace = Outils.convertirEnDate(courant.getElementsByTagName("dateDerniereTrace").item(0).getTextContent(), formatDateUS);
 
-				// crée un objet Utilisateur
+				// cr�e un objet Utilisateur
 				Utilisateur unUtilisateur = new Utilisateur(unId, unPseudo, unMdpSha1, uneAdrMail, unNumTel, unNiveau, uneDateCreation, unNbTraces, uneDateDerniereTrace);
 
-				// ajoute l'utilisateur à la collection lesUtilisateurs
+				// ajoute l'utilisateur � la collection lesUtilisateurs
 				lesUtilisateurs.add(unUtilisateur);
 			}
 
-			// retour de la réponse du service web
+			// retour de la r�ponse du service web
 			return reponse;
 		}
 		catch (Exception ex)
@@ -384,23 +384,23 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 		}
 	}
 
-	// MÃ©thode statique pour obtenir la liste des utilisateurs qui m'autorisent (service GetLesUtilisateursQuiMautorisent.php)
-	// La mÃ©thode doit recevoir 3 paramÃ¨tres :
+	// Méthode statique pour obtenir la liste des utilisateurs qui m'autorisent (service GetLesUtilisateursQuiMautorisent.php)
+	// La méthode doit recevoir 3 paramètres :
 	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
-	//    mdpSha1 : le mot de passe hashÃ© en sha1
-	//    lesUtilisateurs : collection (vide) Ã  remplir Ã  partir des donnÃ©es fournies par le service web
+	//    mdpSha1 : le mot de passe hashé en sha1
+	//    lesUtilisateurs : collection (vide) à remplir à partir des données fournies par le service web
 	public static String getLesUtilisateursQuiMautorisent(String pseudo, String mdpSha1, ArrayList<Utilisateur> lesUtilisateurs)
 	{
 		String reponse = "";
 		try
-		{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
+		{	// cr�ation d'un nouveau document XML � partir de l'URL du service web et des param�tres
 			String urlDuServiceWeb = _adresseHebergeur + _urlGetLesUtilisateursQuiMautorisent;
 			urlDuServiceWeb += "?pseudo=" + pseudo;
 			urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
-			// création d'un flux en lecture (InputStream) à partir du service
+			// cr�ation d'un flux en lecture (InputStream) � partir du service
 			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
 
-			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
+			// cr�ation d'un objet org.w3c.dom.Document � partir du flux ; il servira � parcourir le flux XML
 			Document leDocument = getDocumentXML(unFluxEnLecture);
 
 			// parsing du flux XML
@@ -408,7 +408,7 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 			reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
 
 			NodeList listeNoeudsUtilisateurs = leDocument.getElementsByTagName("utilisateur");
-			/* Exemple de données obtenues pour un utilisateur :
+			/* Exemple de donn�es obtenues pour un utilisateur :
 				<lesUtilisateurs>
 			        <utilisateur>
 				        <id>5</id>
@@ -438,13 +438,13 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 
 			// parcours de la liste des noeuds <utilisateur> et ajout dans la collection lesUtilisateurs
 			for (int i = 0 ; i <= listeNoeudsUtilisateurs.getLength()-1 ; i++)
-			{	// création de l'élément courant à chaque tour de boucle
+			{	// cr�ation de l'�l�ment courant � chaque tour de boucle
 				Element courant = (Element) listeNoeudsUtilisateurs.item(i);
 				
-				// lecture des balises intérieures
+				// lecture des balises int�rieures
 				int unId = Integer.parseInt(courant.getElementsByTagName("id").item(0).getTextContent());
 				String unPseudo = courant.getElementsByTagName("pseudo").item(0).getTextContent();
-				String unMdpSha1 = "";								// par sécurité, on ne récupère pas le mot de passe
+				String unMdpSha1 = "";								// par s�curit�, on ne r�cup�re pas le mot de passe
 				String uneAdrMail = courant.getElementsByTagName("adrMail").item(0).getTextContent();
 				String unNumTel = courant.getElementsByTagName("numTel").item(0).getTextContent();
 				int unNiveau = Integer.parseInt(courant.getElementsByTagName("niveau").item(0).getTextContent());
@@ -454,14 +454,14 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 				if (unNbTraces > 0)
 					uneDateDerniereTrace = Outils.convertirEnDate(courant.getElementsByTagName("dateDerniereTrace").item(0).getTextContent(), formatDateUS);
 
-				// crée un objet Utilisateur
+				// cr�e un objet Utilisateur
 				Utilisateur unUtilisateur = new Utilisateur(unId, unPseudo, unMdpSha1, uneAdrMail, unNumTel, unNiveau, uneDateCreation, unNbTraces, uneDateDerniereTrace);
 
-				// ajoute l'utilisateur à la collection lesUtilisateurs
+				// ajoute l'utilisateur � la collection lesUtilisateurs
 				lesUtilisateurs.add(unUtilisateur);
 			}
 
-			// retour de la réponse du service web
+			// retour de la r�ponse du service web
 			return reponse;
 		}
 		catch (Exception ex)
@@ -471,13 +471,13 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 		}
 	}
 
-	// MÃ©thode statique pour demander une autorisation (service DemanderUneAutorisation.php)
-	// La mÃ©thode doit recevoir 5 paramÃ¨tres :
+	// Méthode statique pour demander une autorisation (service DemanderUneAutorisation.php)
+	// La méthode doit recevoir 5 paramètres :
 	//   pseudo : le pseudo de l'utilisateur qui fait appel au service web
-	//   mdpSha1 : le mot de passe hashÃ© en sha1
-	//   pseudoDestinataire : le pseudo de l'utilisateur Ã  qui on demande l'autorisation
+	//   mdpSha1 : le mot de passe hashé en sha1
+	//   pseudoDestinataire : le pseudo de l'utilisateur à qui on demande l'autorisation
 	//   texteMessage : le texte d'un message accompagnant la demande
-	//   nomPrenom : le nom et le prÃ©nom du demandeur
+	//   nomPrenom : le nom et le prénom du demandeur
 	public static String demanderUneAutorisation(String pseudo, String mdpSha1, String pseudoDestinataire, String texteMessage, String nomPrenom)
 	{
 		String reponse;
@@ -508,12 +508,12 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 		}
 	}
 	
-	// MÃ©thode statique pour retirer une autorisation (service RetirerUneAutorisation.php)
-	// La mÃ©thode doit recevoir 4 paramÃ¨tres :
+	// Méthode statique pour retirer une autorisation (service RetirerUneAutorisation.php)
+	// La méthode doit recevoir 4 paramètres :
 	//   pseudo : le pseudo de l'utilisateur qui fait appel au service web
-	//   mdpSha1 : le mot de passe hashÃ© en sha1
-	//   pseudoARetirer : le pseudo de l'utilisateur Ã  qui on veut retirer l'autorisation
-	//   texteMessage : le texte d'un message pour un Ã©ventuel envoi de courriel
+	//   mdpSha1 : le mot de passe hashé en sha1
+	//   pseudoARetirer : le pseudo de l'utilisateur à qui on veut retirer l'autorisation
+	//   texteMessage : le texte d'un message pour un éventuel envoi de courriel
 	public static String retirerUneAutorisation(String pseudo, String mdpSha1, String pseudoARetirer, String texteMessage)
 	{
 		String reponse = "";
@@ -545,11 +545,11 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 		}
 	}
 	
-	// MÃ©hode statique pour envoyer la position de l'utilisateur (service EnvoyerPosition.php)
-	// La mÃ©thode doit recevoir 3 paramÃ¨tres :
+	// Méhode statique pour envoyer la position de l'utilisateur (service EnvoyerPosition.php)
+	// La méthode doit recevoir 3 paramètres :
 	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
-	//    mdpSha1 : le mot de passe hashÃ© en sha1
-	//    lePoint : un objet PointDeTrace (vide) qui permettra de rÃ©cupÃ©rer le numÃ©ro attribuÃ© Ã  partir des donnÃ©es fournies par le service web
+	//    mdpSha1 : le mot de passe hashé en sha1
+	//    lePoint : un objet PointDeTrace (vide) qui permettra de récupérer le numéro attribué à partir des données fournies par le service web
 	public static String envoyerPosition(String pseudo, String mdpSha1, PointDeTrace lePoint)
 	{
 		String reponse = "";
@@ -584,17 +584,17 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 		}
 	}
 	
-	// MÃ©thode statique pour obtenir un parcours et la liste de ses points (service GetUnParcoursEtSesPoints.php)
-	// La mÃ©thode doit recevoir 4 paramÃ¨tres :
+	// Méthode statique pour obtenir un parcours et la liste de ses points (service GetUnParcoursEtSesPoints.php)
+	// La méthode doit recevoir 4 paramètres :
 	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
-	//    mdpSha1 : le mot de passe hashÃ© en sha1
-	//    idTrace : l'id de la trace Ã  consulter
-	//    laTrace : objet Trace (vide) Ã  remplir Ã  partir des donnÃ©es fournies par le service web
+	//    mdpSha1 : le mot de passe hashé en sha1
+	//    idTrace : l'id de la trace à consulter
+	//    laTrace : objet Trace (vide) à remplir à partir des données fournies par le service web
 //	public static String getUnParcoursEtSesPoints(String pseudo, String mdpSha1, int idTrace, Trace laTrace)
 //	{
 //		String reponse = "";
 //		try
-//		{	// création d'un nouveau document XML Ã  partir de l'URL du service web et des paramÃ¨tres
+//		{	// cr�ation d'un nouveau document XML à partir de l'URL du service web et des paramètres
 //			String urlDuServiceWeb = _adresseHebergeur + _urlGetUnParcoursEtSesPoints;
 //			urlDuServiceWeb += "?pseudo=" + pseudo;
 //			urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
@@ -602,10 +602,10 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 //			urlDuServiceWeb += "&laTrace=" + laTrace;
 //
 //
-//			// crÃ©ation d'un flux en lecture (InputStream) Ã  partir du service
+//			// création d'un flux en lecture (InputStream) à partir du service
 //			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
 //
-//			// crÃ©ation d'un objet org.w3c.dom.Document Ã  partir du flux ; il servira Ã  parcourir le flux XML
+//			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
 //			Document leDocument = getDocumentXML(unFluxEnLecture);
 //
 //			// parsing du flux XML
@@ -613,7 +613,7 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 //			reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
 //			
 //			NodeList listeNoeudsUtilisateurs = leDocument.getElementsByTagName("laTrace");
-//			/* Exemple de donnÃ©es obtenues pour un utilisateur :
+//			/* Exemple de données obtenues pour un utilisateur :
 //				<utilisateur>
 //					<id>2</id>
 //					<pseudo>callisto</pseudo>
@@ -631,13 +631,13 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 //
 //			// parcours de la liste des noeuds <utilisateur> et ajout dans la collection lesUtilisateurs
 //			for (int i = 0 ; i <= listeNoeudsUtilisateurs.getLength()-1 ; i++)
-//			{	// crÃ©ation de l'Ã©lÃ©ment courant Ã  chaque tour de boucle
+//			{	// création de l'élément courant à chaque tour de boucle
 //				Element courant = (Element) listeNoeudsUtilisateurs.item(i);
 //
-//				// lecture des balises intÃ©rieures
+//				// lecture des balises intérieures
 //				int unId = Integer.parseInt(courant.getElementsByTagName("id").item(0).getTextContent());
 //				String unPseudo = courant.getElementsByTagName("pseudo").item(0).getTextContent();
-//				String unMdpSha1 = "";								// par sÃ©curitÃ©, on ne rÃ©cupÃ¨re pas le mot de passe
+//				String unMdpSha1 = "";								// par sécurité, on ne récupère pas le mot de passe
 //				String uneAdrMail = courant.getElementsByTagName("adrMail").item(0).getTextContent();
 //				String unNumTel = courant.getElementsByTagName("numTel").item(0).getTextContent();
 //				int unNiveau = Integer.parseInt(courant.getElementsByTagName("niveau").item(0).getTextContent());
@@ -647,10 +647,10 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 //				if (unNbTraces > 0)
 //					uneDateDerniereTrace = Outils.convertirEnDate(courant.getElementsByTagName("dateDerniereTrace").item(0).getTextContent(), formatDateUS);
 //
-//				// crÃ©e un objet Utilisateur
+//				// crée un objet Utilisateur
 //				Utilisateur unUtilisateur = new Utilisateur(unId, unPseudo, unMdpSha1, uneAdrMail, unNumTel, unNiveau, uneDateCreation, unNbTraces, uneDateDerniereTrace);
 //
-//				// ajoute l'utilisateur Ã  la collection lesUtilisateurs
+//				// ajoute l'utilisateur à la collection lesUtilisateurs
 //				lesUtilisateurs.add(unUtilisateur);
 //			}
 //			
@@ -664,43 +664,68 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 //		
 //	}
 	
-	// MÃ©thode statique pour obtenir la liste des parcours d'un utilisateur (service GetLesParcoursDunUtilisateur.php)
-	// La mÃ©thode doit recevoir 4 paramÃ¨tres :
+	// Méthode statique pour obtenir la liste des parcours d'un utilisateur (service GetLesParcoursDunUtilisateur.php)
+	// La méthode doit recevoir 4 paramètres :
 	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
-	//    mdpSha1 : le mot de passe hashÃ© en sha1
+	//    mdpSha1 : le mot de passe hashé en sha1
 	//    idUtilisateur : l'id de l'utilisateur dont on veut la liste des parcours
-	//    lesTraces : collection (vide) Ã  remplir Ã  partir des donnÃ©es fournies par le service web
+	//    lesTraces : collection (vide) à remplir à partir des données fournies par le service web
 	public static String getLesParcoursDunUtilisateur(String pseudo, String mdpSha1, String pseudoConsulte, ArrayList<Trace> lesTraces)
-	{
-		return "";				// METHODE A CREER ET TESTER
-	}
-	
-	// MÃ©thode statique pour supprimer un parcours (service SupprimerUnParcours.php)
-	// La mÃ©thode doit recevoir 3 paramÃ¨tres :
-	//   pseudo : le pseudo de l'utilisateur qui fait appel au service web
-	//   mdpSha1 : le mot de passe hashÃ© en sha1
-	//   idTrace : l'id de la trace Ã  supprimer
-	public static String supprimerUnParcours(String pseudo, String mdpSha1, int idTrace)
 	{
 		String reponse = "";
 		try
-		{	// crÃ©ation d'un nouveau document XML Ã  partir de l'URL du service web et des paramÃ¨tres
+		{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
 			String urlDuServiceWeb = _adresseHebergeur + _urlSupprimerUnParcours;
 			urlDuServiceWeb += "?pseudo=" + pseudo;
 			urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
-			urlDuServiceWeb += "&idTrace=" + idTrace;
+			urlDuServiceWeb += "&idTrace=" + pseudoConsulte;
 
-			// crÃ©ation d'un flux en lecture (InputStream) Ã  partir du service
+			// création d'un flux en lecture (InputStream) à partir du service
 			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
 
-			// crÃ©ation d'un objet org.w3c.dom.Document Ã  partir du flux ; il servira Ã  parcourir le flux XML
+			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
 			Document leDocument = getDocumentXML(unFluxEnLecture);
 
 			// parsing du flux XML
 			Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
 			reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
 
-			// retour de la rÃ©ponse du service web
+			// retour de la réponse du service web
+			return reponse;
+		}
+		catch (Exception ex)
+		{	String msg = "Erreur : " + ex.getMessage();
+			return msg;
+		}
+		
+	}
+	
+	// Méthode statique pour supprimer un parcours (service SupprimerUnParcours.php)
+	// La méthode doit recevoir 3 paramètres :
+	//   pseudo : le pseudo de l'utilisateur qui fait appel au service web
+	//   mdpSha1 : le mot de passe hashé en sha1
+	//   idTrace : l'id de la trace à supprimer
+	public static String supprimerUnParcours(String pseudo, String mdpSha1, int idTrace)
+	{
+		String reponse = "";
+		try
+		{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
+			String urlDuServiceWeb = _adresseHebergeur + _urlSupprimerUnParcours;
+			urlDuServiceWeb += "?pseudo=" + pseudo;
+			urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
+			urlDuServiceWeb += "&idTrace=" + idTrace;
+
+			// création d'un flux en lecture (InputStream) à partir du service
+			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
+
+			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
+			Document leDocument = getDocumentXML(unFluxEnLecture);
+
+			// parsing du flux XML
+			Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
+			reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
+
+			// retour de la réponse du service web
 			return reponse;
 		}
 		catch (Exception ex)
@@ -709,32 +734,32 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 		}
 	}
 	
-	// MÃ©thode statique pour dÃ©marrer l'enregistrement d'un parcours (service DemarrerEnregistrementParcours.php)
-	// La mÃ©thode doit recevoir 3 paramÃ¨tres :
+	// Méthode statique pour démarrer l'enregistrement d'un parcours (service DemarrerEnregistrementParcours.php)
+	// La méthode doit recevoir 3 paramètres :
 	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
-	//    mdpSha1 : le mot de passe hashÃ© en sha1
-	//    laTrace : un objet Trace (vide) Ã  remplir Ã  partir des donnÃ©es fournies par le service web
+	//    mdpSha1 : le mot de passe hashé en sha1
+	//    laTrace : un objet Trace (vide) à remplir à partir des données fournies par le service web
 	public static String demarrerEnregistrementParcours(String pseudo, String mdpSha1, Trace laTrace)
 	{
 		String reponse = "";
 		try
-		{	// crÃ©ation d'un nouveau document XML Ã  partir de l'URL du service web et des paramÃ¨tres
+		{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
 			String urlDuServiceWeb = _adresseHebergeur + _urlDemarrerEnregistrementParcours;
 			urlDuServiceWeb += "?pseudo=" + pseudo;
 			urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
 			
 
-			// crÃ©ation d'un flux en lecture (InputStream) Ã  partir du service
+			// création d'un flux en lecture (InputStream) à partir du service
 			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
 
-			// crÃ©ation d'un objet org.w3c.dom.Document Ã  partir du flux ; il servira Ã  parcourir le flux XML
+			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
 			Document leDocument = getDocumentXML(unFluxEnLecture);
 
 			// parsing du flux XML
 			Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
 			reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
 
-			// retour de la rÃ©ponse du service web
+			// retour de la réponse du service web
 			return reponse;
 		}
 		catch (Exception ex)
@@ -743,11 +768,11 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 		}
 	}
 		
-	// MÃ©thode statique pour terminer l'enregistrement d'un parcours (service ArreterEnregistrementParcours.php)
-	// La mÃ©thode doit recevoir 3 paramÃ¨tres :
+	// Méthode statique pour terminer l'enregistrement d'un parcours (service ArreterEnregistrementParcours.php)
+	// La méthode doit recevoir 3 paramètres :
 	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
-	//    mdpSha1 : le mot de passe hashÃ© en sha1
-	//    idTrace : l'id de la trace Ã  terminer
+	//    mdpSha1 : le mot de passe hashé en sha1
+	//    idTrace : l'id de la trace à terminer
 	public static String arreterEnregistrementParcours(String pseudo, String mdpSha1, int idTrace)
 	{
 		return "";				// METHODE A CREER ET TESTER
