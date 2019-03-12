@@ -649,10 +649,10 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 		String reponse = "";
 		try
 		{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
-			String urlDuServiceWeb = _adresseHebergeur + _urlSupprimerUnParcours;
+			String urlDuServiceWeb = _adresseHebergeur + _urlGetLesParcoursDunUtilisateur;
 			urlDuServiceWeb += "?pseudo=" + pseudo;
 			urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
-			urlDuServiceWeb += "&idTrace=" + pseudoConsulte;
+			urlDuServiceWeb += "&pseudoConsulte=" + pseudoConsulte;
 
 			// création d'un flux en lecture (InputStream) à partir du service
 			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
@@ -663,6 +663,51 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 			// parsing du flux XML
 			Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
 			reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
+
+			NodeList listeNoeudsTraces = leDocument.getElementsByTagName("trace");
+			/* Exemple de données obtenues pour un utilisateur :
+		      <trace>
+		        <id>2</id>
+		        <dateHeureDebut>2018-01-19 13:08:48</dateHeureDebut>
+		        <terminee>1</terminee>
+		        <dateHeureFin>2018-01-19 13:11:48</dateHeureFin>
+		        <distance>1.2</distance>
+		        <idUtilisateur>2</idUtilisateur>
+		      </trace>
+		      <trace>
+		        <id>1</id>
+		        <dateHeureDebut>2018-01-19 13:08:48</dateHeureDebut>
+		        <terminee>0</terminee>
+		        <distance>0.5</distance>
+		        <idUtilisateur>2</idUtilisateur>
+		      </trace>
+			 */
+
+			// vider d'abord la collection avant de la remplir
+			lesTraces.clear();
+
+			// parcours de la liste des noeuds <utilisateur> et ajout dans la collection lesUtilisateurs
+			for (int i = 0 ; i < listeNoeudsTraces.getLength(); i++)
+			{	// création de l'élément courant à chaque tour de boucle
+				Element courant = (Element) listeNoeudsTraces.item(i);
+
+				// lecture des balises intérieures
+				int unId = Integer.parseInt(courant.getElementsByTagName("id").item(0).getTextContent());
+				String unPseudo = courant.getElementsByTagName("pseudo").item(0).getTextContent();
+				String unMdpSha1 = "";								// par s�curit�, on ne r�cup�re pas le mot de passe
+				String uneAdrMail = courant.getElementsByTagName("adrMail").item(0).getTextContent();
+				String unNumTel = courant.getElementsByTagName("numTel").item(0).getTextContent();
+				int unNiveau = Integer.parseInt(courant.getElementsByTagName("niveau").item(0).getTextContent());
+				Date uneDateCreation = Outils.convertirEnDate(courant.getElementsByTagName("dateCreation").item(0).getTextContent(), formatDateUS);
+				int unNbTraces = Integer.parseInt(courant.getElementsByTagName("nbTraces").item(0).getTextContent());
+				Date uneDateDerniereTrace = null;
+				if (unNbTraces > 0)
+					uneDateDerniereTrace = Outils.convertirEnDate(courant.getElementsByTagName("dateDerniereTrace").item(0).getTextContent(), formatDateUS);
+
+				// cr�e un objet Utilisateur
+				Utilisateur unUtilisateur = new Utilisateur(unId, unPseudo, unMdpSha1, uneAdrMail, unNumTel, unNiveau, uneDateCreation, unNbTraces, uneDateDerniereTrace);
+
+			}
 
 			// retour de la réponse du service web
 			return reponse;

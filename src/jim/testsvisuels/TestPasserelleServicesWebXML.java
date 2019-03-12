@@ -30,21 +30,8 @@ public class TestPasserelleServicesWebXML {
 
 
 		// test visuel de la méthode getLesUtilisateursQueJautorise
-		ArrayList<Utilisateur> lesUtilisateurs = new ArrayList<Utilisateur>();
-		msg = PasserelleServicesWebXML.getLesUtilisateursQueJautorise("europa", Outils.sha1("mdputilisateur"), lesUtilisateurs);
-		// affichage de la réponse
-		System.out.println(msg);
-		// affichage du nombre d'utilisateurs
-		System.out.println("Nombre d'utilisateurs : " + lesUtilisateurs.size());
-		// affichage de tous les utilisateurs
-		for (Utilisateur unUtilisateur : lesUtilisateurs)
-		{	System.out.println(unUtilisateur.toString());
-		}
-
-//
-//		// test visuel de la méthode getLesUtilisateursQuiMautorisent
 //		ArrayList<Utilisateur> lesUtilisateurs = new ArrayList<Utilisateur>();
-//		msg = PasserelleServicesWebXML.getLesUtilisateursQuiMautorisent("europa", Outils.sha1("mdputilisateur"), lesUtilisateurs);
+//		msg = PasserelleServicesWebXML.getLesUtilisateursQueJautorise("europa", Outils.sha1("mdputilisateur"), lesUtilisateurs);
 //		// affichage de la réponse
 //		System.out.println(msg);
 //		// affichage du nombre d'utilisateurs
@@ -54,9 +41,22 @@ public class TestPasserelleServicesWebXML {
 //		{	System.out.println(unUtilisateur.toString());
 //		}
 
+//
+		// test visuel de la méthode getLesUtilisateursQuiMautorisent
+		ArrayList<Utilisateur> lesUtilisateurs = new ArrayList<Utilisateur>();
+		msg = PasserelleServicesWebXML.getLesUtilisateursQuiMautorisent("europa", Outils.sha1("mdputilisateur"), lesUtilisateurs);
+		// affichage de la réponse
+		System.out.println(msg);
+		// affichage du nombre d'utilisateurs
+		System.out.println("Nombre d'utilisateurs : " + lesUtilisateurs.size());
+		// affichage de tous les utilisateurs
+		for (Utilisateur unUtilisateur : lesUtilisateurs)
+		{	System.out.println(unUtilisateur.toString());
+		}
+
 
 		
-//		// test visuel de la méthode getLesParcoursDunUtilisateur
+		// test visuel de la méthode getLesParcoursDunUtilisateur
 //		ArrayList<Trace> lesTraces = new ArrayList<Trace>();
 //		msg = PasserelleServicesWebXML.getLesParcoursDunUtilisateur("europa", Outils.sha1("mdputilisateur"), "callisto", lesTraces);
 //		// affichage de la réponse
