@@ -149,10 +149,24 @@ public class PasserelleServiceWebXMLTest {
 //
 //
 //	@Test
-//	public void testArreterEnregistrementParcours() {
-//		fail("Not yet implemented");
-//	}
-//	
+	public void testArreterEnregistrementParcours() {
+		String msg;
+
+		msg = PasserelleServicesWebXML.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateurrrrrr"), 23);
+		assertEquals("Erreur : authentification incorrecte.", msg);
+		
+		msg = PasserelleServicesWebXML.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 230);
+		assertEquals("Erreur : parcours inexistant.", msg);
+		
+		msg = PasserelleServicesWebXML.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 5);
+		assertEquals("Erreur : le numéro de trace ne correspond pas à cet utilisateur.", msg);
+		
+		msg = PasserelleServicesWebXML.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 4);
+		assertEquals("Erreur : cette trace est déjà terminée.", msg);	
+		
+		msg = PasserelleServicesWebXML.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 23);
+		assertEquals("Enregistrement terminé.", msg);	
+	}
 //	@Test
 //	public void testSupprimerUnUnParcours() {
 //		String msg = PasserelleServicesWebXML.supprimerUnParcours("europa", Outils.sha1("mdputilisateurrrrrr"), 10);

@@ -30,16 +30,16 @@ public class TestPasserelleServicesWebXML {
 
 
 		// test visuel de la méthode getLesUtilisateursQueJautorise
-		ArrayList<Utilisateur> lesUtilisateurs = new ArrayList<Utilisateur>();
-		msg = PasserelleServicesWebXML.getLesUtilisateursQueJautorise("europa", Outils.sha1("mdputilisateur"), lesUtilisateurs);
+//		ArrayList<Utilisateur> lesUtilisateurs = new ArrayList<Utilisateur>();
+//		msg = PasserelleServicesWebXML.getLesUtilisateursQueJautorise("europa", Outils.sha1("mdputilisateur"), lesUtilisateurs);
 		// affichage de la réponse
-		System.out.println(msg);
+//		System.out.println(msg);
 		// affichage du nombre d'utilisateurs
-		System.out.println("Nombre d'utilisateurs : " + lesUtilisateurs.size());
+//		System.out.println("Nombre d'utilisateurs : " + lesUtilisateurs.size());
 		// affichage de tous les utilisateurs
-		for (Utilisateur unUtilisateur : lesUtilisateurs)
-		{	System.out.println(unUtilisateur.toString());
-		}
+//		for (Utilisateur unUtilisateur : lesUtilisateurs)
+//		{	System.out.println(unUtilisateur.toString());
+//		}
 
 //
 //		// test visuel de la méthode getLesUtilisateursQuiMautorisent
@@ -78,7 +78,14 @@ public class TestPasserelleServicesWebXML {
 //		// affichage de la trace
 //		System.out.println(laTrace.toString());
 
-
+		// test visuel de la méthode getUnParcoursEtSesPoints
+		// test visuel de la méthode getUnParcoursEtSesPoints
+//				Trace laTrace = new Trace();
+//				msg = PasserelleServicesWebXML.getUnParcoursEtSesPoints("europa", Outils.sha1("mdputilisateur"), 2, laTrace);
+				// affichage de la réponse
+//				System.out.println(msg);
+				// affichage de la trace
+//				System.out.println(laTrace.toString());
 	
 	} // fin Main
 } // fin class
