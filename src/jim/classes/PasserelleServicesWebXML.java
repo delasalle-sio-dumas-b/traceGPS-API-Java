@@ -25,7 +25,7 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 	// Adresse de l'hÃ©bergeur Internet
 	//private static String _adresseHebergeur = "http://sio.lyceedelasalle.fr/tracegps/services/";
 	// Adresse du localhost en cas d'exécution sur le poste de développement (projet de tests des classes)
-	private static String _adresseHebergeur = "http://127.0.0.1/ws-php-leilla/tracegps/services/";
+	private static String _adresseHebergeur = "http://127.0.0.1/ws-php-vallee/tracegps/services/";
 
 	// Noms des services web dÃ©jÃ  traitÃ©s par la passerelle
 	private static String _urlArreterEnregistrementParcours = "ArreterEnregistrementParcours.php";
@@ -516,7 +516,33 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 	//   texteMessage : le texte d'un message pour un Ã©ventuel envoi de courriel
 	public static String retirerUneAutorisation(String pseudo, String mdpSha1, String pseudoARetirer, String texteMessage)
 	{
-		return "";				// METHODE A CREER ET TESTER
+		String reponse = "";
+		
+		try 
+		{
+			String urlDuServiceWeb = _adresseHebergeur + _urlRetirerUneAutorisation;
+			urlDuServiceWeb += "?pseudo=" + pseudo;
+			urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
+			urlDuServiceWeb += "&pseudoARetirer=" + pseudoARetirer;
+			urlDuServiceWeb += "&texteMessage=" + texteMessage;
+			
+			// création d'un flux en lecture (InputStream) à partir du service
+			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
+				
+			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
+			Document leDocument = getDocumentXML(unFluxEnLecture);
+			
+			Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
+			reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
+			
+			return reponse;
+						
+		} 
+		catch (Exception ex) 
+		{
+			String msg = "Erreur : " + ex.getMessage();
+			return msg;
+		}
 	}
 	
 	// MÃ©hode statique pour envoyer la position de l'utilisateur (service EnvoyerPosition.php)
