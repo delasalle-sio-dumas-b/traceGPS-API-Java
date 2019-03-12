@@ -719,20 +719,18 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 
 				// lecture des balises intÃ©rieures
 				int unId = Integer.parseInt(courant.getElementsByTagName("id").item(0).getTextContent());
-				String unPseudo = courant.getElementsByTagName("pseudo").item(0).getTextContent();
-				String unMdpSha1 = "";								// par sécurité, on ne récupère pas le mot de passe
-				String uneAdrMail = courant.getElementsByTagName("adrMail").item(0).getTextContent();
-				String unNumTel = courant.getElementsByTagName("numTel").item(0).getTextContent();
-				int unNiveau = Integer.parseInt(courant.getElementsByTagName("niveau").item(0).getTextContent());
-				Date uneDateCreation = Outils.convertirEnDate(courant.getElementsByTagName("dateCreation").item(0).getTextContent(), formatDateUS);
-				int unNbTraces = Integer.parseInt(courant.getElementsByTagName("nbTraces").item(0).getTextContent());
-				Date uneDateDerniereTrace = null;
-				if (unNbTraces > 0)
-					uneDateDerniereTrace = Outils.convertirEnDate(courant.getElementsByTagName("dateDerniereTrace").item(0).getTextContent(), formatDateUS);
-
-				// crée un objet Utilisateur
-				Utilisateur unUtilisateur = new Utilisateur(unId, unPseudo, unMdpSha1, uneAdrMail, unNumTel, unNiveau, uneDateCreation, unNbTraces, uneDateDerniereTrace);
-
+				Date dateHeureDebut = Outils.convertirEnDate(courant.getElementsByTagName("dateHeureDebut").item(0).getTextContent());
+				boolean terminee =  Integer.parseInt(courant.getElementsByTagName("terminee").item(0).getTextContent()) == 1;
+				Date dateHeureFin = null;
+				if(terminee == true) {
+					dateHeureFin = Outils.convertirEnDate(courant.getElementsByTagName("dateHeureFin").item(0).getTextContent());	
+				}
+				int idUtilisateur = Integer.parseInt(courant.getElementsByTagName("idUtilisateur").item(0).getTextContent());	
+			
+				// crée un objet Trace
+				Trace uneTrace= new Trace(unId, dateHeureDebut, dateHeureFin, terminee, idUtilisateur);
+			
+				lesTraces.add(uneTrace);
 			}
 
 			// retour de la rÃ©ponse du service web
