@@ -587,7 +587,6 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 	// Méthode statique pour obtenir un parcours et la liste de ses points (service GetUnParcoursEtSesPoints.php)
 	// La méthode doit recevoir 4 paramètres :
 	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
-<<<<<<< HEAD
 	//    mdpSha1 : le mot de passe hashÃ© en sha1
 	//    idTrace : l'id de la trace Ã  consulter
 	//    laTrace : objet Trace (vide) Ã  remplir Ã  partir des donnÃ©es fournies par le service web
@@ -661,7 +660,6 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 			return msg;
 		}		
 	}
-=======
 	//    mdpSha1 : le mot de passe hashé en sha1
 	//    idTrace : l'id de la trace à consulter
 	//    laTrace : objet Trace (vide) à remplir à partir des données fournies par le service web
@@ -738,7 +736,6 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 //		}		
 //		
 //	}
->>>>>>> branch 'master' of https://github.com/delasalle-sio-dumas-b/traceGPS-API-Java.git
 	
 	// Méthode statique pour obtenir la liste des parcours d'un utilisateur (service GetLesParcoursDunUtilisateur.php)
 	// La méthode doit recevoir 4 paramètres :
@@ -803,7 +800,7 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 				}
 				int idUtilisateur = Integer.parseInt(courant.getElementsByTagName("idUtilisateur").item(0).getTextContent());	
 			
-				// cr�e un objet Trace
+				// cr�e un objet Trace
 				Trace uneTrace= new Trace(unId, dateHeureDebut, dateHeureFin, terminee, idUtilisateur);
 			
 				lesTraces.add(uneTrace);

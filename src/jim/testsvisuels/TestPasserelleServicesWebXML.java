@@ -32,19 +32,11 @@ public class TestPasserelleServicesWebXML {
 		// test visuel de la méthode getLesUtilisateursQueJautorise
 //		ArrayList<Utilisateur> lesUtilisateurs = new ArrayList<Utilisateur>();
 //		msg = PasserelleServicesWebXML.getLesUtilisateursQueJautorise("europa", Outils.sha1("mdputilisateur"), lesUtilisateurs);
-<<<<<<< HEAD
-		// affichage de la réponse
-//		System.out.println(msg);
-		// affichage du nombre d'utilisateurs
-//		System.out.println("Nombre d'utilisateurs : " + lesUtilisateurs.size());
-		// affichage de tous les utilisateurs
-=======
 //		// affichage de la réponse
 //		System.out.println(msg);
 //		// affichage du nombre d'utilisateurs
 //		System.out.println("Nombre d'utilisateurs : " + lesUtilisateurs.size());
 //		// affichage de tous les utilisateurs
->>>>>>> branch 'master' of https://github.com/delasalle-sio-dumas-b/traceGPS-API-Java.git
 //		for (Utilisateur unUtilisateur : lesUtilisateurs)
 //		{	System.out.println(unUtilisateur.toString());
 //		}
