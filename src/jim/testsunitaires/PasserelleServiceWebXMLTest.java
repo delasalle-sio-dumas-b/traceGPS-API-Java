@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.junit.Test;
@@ -177,8 +178,9 @@ public class PasserelleServiceWebXMLTest {
 //		msg = PasserelleServicesWebXML.changerDeMdp("europa", Outils.sha1("mdputilisateurrrr"), "mdputilisateur", "mdputilisateur");
 //		assertEquals("Enregistrement effectué ; vous allez recevoir un courriel de confirmation.", msg);
 //	}	
-
+//
 //	@Test
+
 //	public void testDemanderMdp() {
 //		
 //			String msg = PasserelleServicesWebXML.demanderMdp("jim");
@@ -188,11 +190,18 @@ public class PasserelleServiceWebXMLTest {
 //			assertEquals("Vous allez recevoir un courriel avec votre nouveau mot de passe.", msg);
 //		
 //	}
+<<<<<<< HEAD
 >>>>>>> master
 	
+=======
+//	
+//	
+//	
+>>>>>>> master
 //	@Test
 //	public void testDemanderUneAutorisation() {
-//		fail("Not yet implemented");	
+//		return "";
+//	
 //	}	
 //	
 //	@Test
@@ -200,10 +209,63 @@ public class PasserelleServiceWebXMLTest {
 //		fail("Not yet implemented");
 //	}
 //	
+//
+//	@Test
+//	public void testEnvoyerPosition() throws ParseException {
+//			Date laDate = Outils.convertirEnDateHeure("24/01/2018 13:42:21");
+//		
+//		PointDeTrace lePoint = new PointDeTrace(23, 0, 48.15, -1.68, 50, laDate, 80);
+//		String msg = PasserelleServicesWebXML.envoyerPosition("europa", Outils.sha1("mdputilisateurrrrrr"), lePoint);
+//		assertEquals("Erreur : authentification incorrecte.", msg);
+//		
+//		lePoint = new PointDeTrace(2333, 0, 48.15, -1.68, 50, laDate, 80);
+//		msg = PasserelleServicesWebXML.envoyerPosition("europa", Outils.sha1("mdputilisateur"), lePoint);
+//		assertEquals("Erreur : le numéro de trace n'existe pas.", msg);
+//		
+//		lePoint = new PointDeTrace(22, 0, 48.15, -1.68, 50, laDate, 80);
+//		msg = PasserelleServicesWebXML.envoyerPosition("europa", Outils.sha1("mdputilisateur"), lePoint);
+//		assertEquals("Erreur : le numéro de trace ne correspond pas à cet utilisateur.", msg);	
+//		
+//		lePoint = new PointDeTrace(4, 0, 48.15, -1.68, 50, laDate, 80);
+//		msg = PasserelleServicesWebXML.envoyerPosition("europa", Outils.sha1("mdputilisateur"), lePoint);
+//		assertEquals("Point créé.", msg);
+//	}
+//
+//
+//	@Test
+//	public void testDemarrerEnregistrementParcours() {
+//		Trace laTrace = new Trace();
+//		String msg = PasserelleServicesWebXML.demarrerEnregistrementParcours("europa", Outils.sha1("mdputilisateurrrrrr"), laTrace);
+//		assertEquals("Erreur : authentification incorrecte.", msg);
+//		
+//		laTrace = new Trace();
+//		msg = PasserelleServicesWebXML.demarrerEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), laTrace);
+//		assertEquals("Trace créée.", msg);	
+//	}
+//
+
 	@Test
-	public void testEnvoyerPosition() throws ParseException {
-		fail("Not yet implemented");
+	public void testArreterEnregistrementParcours() {
+		String msg;
+
+		msg = PasserelleServicesWebXML.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateurrrrrr"), 23);
+		assertEquals("Erreur : authentification incorrecte.", msg);
+		
+		msg = PasserelleServicesWebXML.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 230);
+		assertEquals("Erreur : parcours inexistant.", msg);
+		
+		msg = PasserelleServicesWebXML.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 5);
+		assertEquals("Erreur : le numéro de trace ne correspond pas à cet utilisateur.", msg);
+		
+		msg = PasserelleServicesWebXML.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 4);
+		assertEquals("Erreur : cette trace est déjà terminée.", msg);	
+		
+		msg = PasserelleServicesWebXML.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 23);
+		assertEquals("Enregistrement terminé.", msg);	
 	}
+
+
+
 
 	@Test
 	public void testDemarrerEnregistrementParcours() {
@@ -230,24 +292,20 @@ public class PasserelleServiceWebXMLTest {
 		assertEquals("Trace créée.", msg);	
 	}
 
+	
+	@Test
+	public void testSupprimerUnUnParcours() {
+		String msg = PasserelleServicesWebXML.supprimerUnParcours("europa", Outils.sha1("mdputilisateurrrrrr"), 10);
+		assertEquals("Erreur : authentification incorrecte.", msg);
+		
+		msg = PasserelleServicesWebXML.supprimerUnParcours("europa", Outils.sha1("mdputilisateur"), 100);
+		assertEquals("Erreur : parcours inexistant.", msg);
+		
+		msg = PasserelleServicesWebXML.supprimerUnParcours("europa", Outils.sha1("mdputilisateur"), 22);
+		assertEquals("Erreur : vous n'êtes pas le propriétaire de ce parcours.", msg);	
+		
+		msg = PasserelleServicesWebXML.supprimerUnParcours("europa", Outils.sha1("mdputilisateur"), 30);
+		assertEquals("Parcours supprimé.", msg);	
+	}	
 
-//	@Test
-//	public void testArreterEnregistrementParcours() {
-//		fail("Not yet implemented");
-//	}
-//	
-//	@Test
-//	public void testSupprimerUnUnParcours() {
-//		String msg = PasserelleServicesWebXML.supprimerUnParcours("europa", Outils.sha1("mdputilisateurrrrrr"), 10);
-//		assertEquals("Erreur : authentification incorrecte.", msg);
-//		
-//		msg = PasserelleServicesWebXML.supprimerUnParcours("europa", Outils.sha1("mdputilisateur"), 100);
-//		assertEquals("Erreur : parcours inexistant.", msg);
-//		
-//		msg = PasserelleServicesWebXML.supprimerUnParcours("europa", Outils.sha1("mdputilisateur"), 22);
-//		assertEquals("Erreur : vous n'êtes pas le propriétaire de ce parcours.", msg);	
-//		
-//		msg = PasserelleServicesWebXML.supprimerUnParcours("europa", Outils.sha1("mdputilisateur"), 30);
-//		assertEquals("Parcours supprimé.", msg);	
-//	}	
 } // fin du test
