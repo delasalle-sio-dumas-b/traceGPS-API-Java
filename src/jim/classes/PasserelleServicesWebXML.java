@@ -587,7 +587,7 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 	// Méthode statique pour obtenir un parcours et la liste de ses points (service GetUnParcoursEtSesPoints.php)
 	// La méthode doit recevoir 4 paramètres :
 	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
-<<<<<<< HEAD
+
 	//    mdpSha1 : le mot de passe hashÃ© en sha1
 	//    idTrace : l'id de la trace Ã  consulter
 	//    laTrace : objet Trace (vide) Ã  remplir Ã  partir des donnÃ©es fournies par le service web
@@ -661,84 +661,7 @@ public class PasserelleServicesWebXML extends PasserelleXML {
 			return msg;
 		}		
 	}
-=======
-	//    mdpSha1 : le mot de passe hashé en sha1
-	//    idTrace : l'id de la trace à consulter
-	//    laTrace : objet Trace (vide) à remplir à partir des données fournies par le service web
-//	public static String getUnParcoursEtSesPoints(String pseudo, String mdpSha1, int idTrace, Trace laTrace)
-//	{
-//		String reponse = "";
-//		try
-//		{	// cr�ation d'un nouveau document XML à partir de l'URL du service web et des paramètres
-//			String urlDuServiceWeb = _adresseHebergeur + _urlGetUnParcoursEtSesPoints;
-//			urlDuServiceWeb += "?pseudo=" + pseudo;
-//			urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
-//			urlDuServiceWeb += "&idTrace=" + idTrace;
-//			urlDuServiceWeb += "&laTrace=" + laTrace;
-//
-//
-//			// création d'un flux en lecture (InputStream) à partir du service
-//			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
-//
-//			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
-//			Document leDocument = getDocumentXML(unFluxEnLecture);
-//
-//			// parsing du flux XML
-//			Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
-//			reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
-//			
-//			NodeList listeNoeudsUtilisateurs = leDocument.getElementsByTagName("laTrace");
-//			/* Exemple de données obtenues pour un utilisateur :
-//				<utilisateur>
-//					<id>2</id>
-//					<pseudo>callisto</pseudo>
-//					<adrMail>delasalle.sio.eleves@gmail.com</adrMail>
-//					<numTel>22.33.44.55.66</numTel>
-//					<niveau>1</niveau>
-//					<dateCreation>2018-01-19 20:11:24</dateCreation>
-//					<nbTraces>2</nbTraces>
-//					<dateDerniereTrace>2018-01-19 13:08:48</dateDerniereTrace>
-//				</utilisateur>
-//			 */
-//
-//			// vider d'abord la collection avant de la remplir
-//			laTrace.clear();
-//
-//			// parcours de la liste des noeuds <utilisateur> et ajout dans la collection lesUtilisateurs
-//			for (int i = 0 ; i <= listeNoeudsUtilisateurs.getLength()-1 ; i++)
-//			{	// création de l'élément courant à chaque tour de boucle
-//				Element courant = (Element) listeNoeudsUtilisateurs.item(i);
-//
-//				// lecture des balises intérieures
-//				int unId = Integer.parseInt(courant.getElementsByTagName("id").item(0).getTextContent());
-//				String unPseudo = courant.getElementsByTagName("pseudo").item(0).getTextContent();
-//				String unMdpSha1 = "";								// par sécurité, on ne récupère pas le mot de passe
-//				String uneAdrMail = courant.getElementsByTagName("adrMail").item(0).getTextContent();
-//				String unNumTel = courant.getElementsByTagName("numTel").item(0).getTextContent();
-//				int unNiveau = Integer.parseInt(courant.getElementsByTagName("niveau").item(0).getTextContent());
-//				Date uneDateCreation = Outils.convertirEnDate(courant.getElementsByTagName("dateCreation").item(0).getTextContent(), formatDateUS);
-//				int unNbTraces = Integer.parseInt(courant.getElementsByTagName("nbTraces").item(0).getTextContent());
-//				Date uneDateDerniereTrace = null;
-//				if (unNbTraces > 0)
-//					uneDateDerniereTrace = Outils.convertirEnDate(courant.getElementsByTagName("dateDerniereTrace").item(0).getTextContent(), formatDateUS);
-//
-//				// crée un objet Utilisateur
-//				Utilisateur unUtilisateur = new Utilisateur(unId, unPseudo, unMdpSha1, uneAdrMail, unNumTel, unNiveau, uneDateCreation, unNbTraces, uneDateDerniereTrace);
-//
-//				// ajoute l'utilisateur à la collection lesUtilisateurs
-//				lesUtilisateurs.add(unUtilisateur);
-//			}
-//			
-//		return reponse;
-//		}
-//		catch(Exception ex)
-//		{
-//		String msg = "Erreur : " + ex.getMessage();
-//		return msg;
-//		}		
-//		
-//	}
->>>>>>> branch 'master' of https://github.com/delasalle-sio-dumas-b/traceGPS-API-Java.git
+
 	
 	// Méthode statique pour obtenir la liste des parcours d'un utilisateur (service GetLesParcoursDunUtilisateur.php)
 	// La méthode doit recevoir 4 paramètres :

@@ -117,8 +117,7 @@ public class PasserelleServiceWebXMLTest {
 //	}
 //
 
-//	@Test
-<<<<<<< HEAD
+	@Test
 	public void testArreterEnregistrementParcours() {
 		String msg;
 
@@ -137,20 +136,7 @@ public class PasserelleServiceWebXMLTest {
 		msg = PasserelleServicesWebXML.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 23);
 		assertEquals("Enregistrement terminé.", msg);	
 	}
-//	@Test
-//	public void testSupprimerUnUnParcours() {
-//		String msg = PasserelleServicesWebXML.supprimerUnParcours("europa", Outils.sha1("mdputilisateurrrrrr"), 10);
-=======
-//	public void testDemarrerEnregistrementParcours() {
-//		Trace laTrace = new Trace();
-//		String msg = PasserelleServicesWebXML.demarrerEnregistrementParcours("europa", Outils.sha1("mdputilisateurrrrrr"), laTrace);
->>>>>>> branch 'master' of https://github.com/delasalle-sio-dumas-b/traceGPS-API-Java.git
-//		assertEquals("Erreur : authentification incorrecte.", msg);
-//		
-//		laTrace = new Trace();
-//		msg = PasserelleServicesWebXML.demarrerEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), laTrace);
-//		assertEquals("Trace créée.", msg);	
-//	}
+
 
 
 	@Test
@@ -165,10 +151,6 @@ public class PasserelleServiceWebXMLTest {
 	}
 
 
-	@Test
-	public void testArreterEnregistrementParcours() {
-		fail("Not yet implemented");
-	}
 	
 	@Test
 	public void testSupprimerUnUnParcours() {
