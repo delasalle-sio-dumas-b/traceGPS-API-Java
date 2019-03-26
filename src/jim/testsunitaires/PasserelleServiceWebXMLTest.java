@@ -154,7 +154,6 @@ public class PasserelleServiceWebXMLTest {
 		assertEquals("Point créé.", msg);
 	}
 
-
 	@Test
 	public void testDemarrerEnregistrementParcours() {
 		Trace laTrace = new Trace();
@@ -183,7 +182,7 @@ public class PasserelleServiceWebXMLTest {
 		msg = PasserelleServicesWebXML.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 4);
 		assertEquals("Erreur : cette trace est déjà terminée.", msg);	
 		
-		msg = PasserelleServicesWebXML.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 23);
+		msg = PasserelleServicesWebXML.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 31);
 		assertEquals("Enregistrement terminé.", msg);	
 	}
 	
